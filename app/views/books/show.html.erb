@@ -1,0 +1,7 @@
+<h1>Editing Book</h1>
+  <p>><%=@book.title %></p>
+  <label>body</label>
+  <p><%=@list.body %></p>
+  
+<%= link_to "edit", edit_todolist_path(@list.id) %> 
+<%= link_to "削除", destroy_todolist_path(@book.id), method: :delete,%>
