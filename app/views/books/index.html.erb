@@ -1,7 +1,6 @@
 <body>
     <p id="notice"></p>
-
-<h1>Books</h1>
+<h1>books</h1>
 
 <table>
   <thead>
@@ -11,173 +10,44 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
+     <% @books.each do |book| %>
       <tr>
-        <td>入門Git
-        </td>
-        <td>gitについての基本操作から内部構造まで解説してくれます
-        </td>
-        <td>
-          <a class="show_209609" href="/books/209609">Show
-          </a>
-        </td>
-        <td>
-          <a class="edit_209609" href="/books/209609/edit">Edit
-          </a>
-        </td>
-        <td>
-          <a data-confirm="Are you sure?" class="destroy_209609" rel="nofollow" data-method="delete" href="/books/209609">Destroy
-          </a>
-        </td>
-        </tr>
-      <tr>
-        <td>アルゴリズム図鑑
-        </td>
-        <td>アルゴリズムについてカラーイラストでしっかり解説してくれます
-        </td>
-        <td><a class="show_209610" href="/books/209610">Show
-             </a>
-        </td>
-        <td>
-          <a class="edit_209610" href="/books/209610/edit">Edit
-          </a>
-        </td>
-        <td>
-          <a data-confirm="Are you sure?" class="destroy_209610" rel="nofollow" data-method="delete" href="/books/209610">Destroy</a>
-        </td>
+      <td><%= book.title %></td>
+      <td><%= book.body %></td>
+      <td><%= link_to "Show",book_path(book.id) %></td>
+      <td><%= link_to "Edit",edit_book_path(book.id) %></td>
+      <td><%= link_to "Destroy",book_path(book.id),method: :delete %></td>
       </tr>
-      <tr>
-        <td>達人プログラマー
-        </td>
-        <td>プログラマ入門者は必読！
-        </td>
-        <td>
-          <a class="show_209611" href="/books/209611">Show
-          </a>
-        </td>
-        <td>
-          <a class="edit_209611" href="/books/209611/edit">Edit
-          </a>
-        </td>
-        <td>
-          <a data-confirm="Are you sure?" class="destroy_209611" rel="nofollow" data-method="delete" href="/books/209611">Destroy
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>データベース実践入門
-        </td>
-        <td>効率的なSQL文を教えてくれます
-        </td>
-        <td>
-          <a class="show_209612" href="/books/209612">Show
-          </a>
-        </td>
-        <td>
-          <a class="edit_209612" href="/books/209612/edit">Edit
-          </a>
-        </td>
-        <td>
-          <a data-confirm="Are you sure?" class="destroy_209612" rel="nofollow" data-method="delete" href="/books/209612">Destroy
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>リーダブルコード
-        </td>
-        <td>より良いコードを書くためのシンプルで実践的なテクニック</td>
-        <td>
-          <a class="show_209606" href="/books/209606">Show</a>
-        </td>
-        <td>
-          <a class="edit_209606" href="/books/209606/edit">Edit
-          </a>
-        </td>
-        <td>
-          <a data-confirm="Are you sure?" class="destroy_209606" rel="nofollow" data-method="delete" href="/books/209606">Destroy
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>たのしいRuby
-        </td>
-        <td>Rubyの入門におすすめです
-        </td>
-        <td>
-          <a class="show_209613" href="/books/209613">Show
-          </a>
-        </td>
-        <td>
-          <a class="edit_209613" href="/books/209613/edit">Edit
-          </a>
-        </td>
-        <td>
-          <a data-confirm="Are you sure?" class="destroy_209613" rel="nofollow" data-method="delete" href="/books/209613">Destroy
-          </a>
-        </td>
-      </tr>
+
+     <% end %>
+    
   </tbody>
 </table>
 
-
 <h2>New book</h2>
-<form class="new_book" id="new_book" action="/books" accept-charset="UTF-8" method="post">
-  <input name="utf8" type="hidden" value="✓">
-  <input type="hidden" name="authenticity_token" value="7GcWaVKW04vzOfTShCWCA+AY/zqI36HmLsyW2Ys6nWBHKa5zv7TEFxyLu/nkNZ7cNqFaRqfrnAAmFM74reiqHg==">
+<%= form_for(@book) do |f| %>
+<h4>Title</h4>
+    <%= f.text_field :title %>
+ 
+    <h4>Body</h4>
+    <%= f.text_area :body %>
+ 
+  <%= f.submit 'Create Book' %>
 
-  <div class="field">
-    <label for="book_title">Title</label>
-    <input class="book_title" type="text" name="book[title]" id="book_title">
-  </div>
+    <% if f.object.errors.any? %>
+    <ul>
+      <% f.object.errors.full_messages.each do |message| %>
+        <li><p>error</p></li>
+        <li><%= message%></li>
+    </ul>
+    <% end %>
+  <% end %>
+<p id="notice">
+ <%= notice %> 
+</p>
 
-  <div class="field">
-    <label for="book_body">Body</label>
-    <textarea class="book_body" name="book[body]" id="book_body"></textarea>
-  </div>
+<% end %>
+     
 
-  <div class="actions">
-    <input type="submit" name="commit" value="Create Book" data-disable-with="Create Book">
-  </div>
-</form>
-<div id="goog-gt-tt" class="skiptranslate" dir="ltr">
-  <div style="padding: 8px;">
-    <div>
-      <div class="top" style="padding: 8px; float: left; width: 100%;">
-        
-      </div>
-      <div class="middle" style="padding: 8px;">
-        <div class="original-text">
-          
-        </div>
-      </div>
-      <div class="bottom" style="padding: 8px;">
-        <div class="activity-links">
-          <span class="activity-link">
-            
-          </span>
-        </div>
-        <div class="started-activity-container">
-          <hr style="color: #CCC; background-color: #CCC; height: 1px; border: none;">
-          <div class="activity-root">
-            
-          </div>
-        </div>
-      </div>
-      <div class="status-message" style="display: none;">
-        
-      </div>
-    </div>
-  
 
-<div class="goog-te-spinner-pos">
-  <div class="goog-te-spinner-animation">
-    <svg xmlns="http://www.w3.org/2000/svg" class="goog-te-spinner" width="96px" height="96px" viewBox="0 0 66 66">
-      <circle class="goog-te-spinner-path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"
-      >
-        
-      </circle>
-    </svg>
-  </div>
-</div>
-</body>

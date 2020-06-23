@@ -25,6 +25,15 @@ class TodolistsController < ApplicationController
         # トップ画面へリダイレクト
     redirect_to todolist_path(book.id)
     end
+   def create
+    @post = Post.new(content: params[:content])
+    if @post.save
+      flash[:notice] = "successfully"
+      redirect_to("/posts/index")
+    else
+      render("posts/new")
+    end
+  end
 
   def index
     @books = Book.all
